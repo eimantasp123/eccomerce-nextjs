@@ -1,104 +1,66 @@
 "use client";
-
-import Link from "next/link";
-import { useState, useRef } from "react";
-import HeaderModal from "@/app/_components/HeaderModal/HeaderModal";
-import MegaMenuMen from "./MegaMenuMen";
-import MegaMenuWomen from "./MegaMenuWomen";
-import MegaMenuAllProducts from "./MegaMenuAllProducts";
+import React from "react";
+import { IoSearchOutline } from "react-icons/io5";
+import { AiOutlineMenu } from "react-icons/ai";
+import Modal from "../Modal";
+import { useModal } from "../Context/ModalContext";
+import SearchBarModal from "./SearchBarModal";
+import MenuSidebarContent from "./MenuSidebarContent";
 
 function HeaderMenu() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [modalPosition, setModalPosition] = useState({
-    top: 0,
-    left: 0,
-    width: "100%",
-  });
-  const [activeLink, setActiveLink] = useState("");
-  const modalTimeoutRef = useRef(null);
-
-  const handleMouseEnter = (event, content, linkName, width = "100%") => {
-    if (modalTimeoutRef.current) {
-      clearTimeout(modalTimeoutRef.current);
-      modalTimeoutRef.current = null;
-    }
-    setModalContent(content);
-    setModalPosition({
-      top: 80,
-      left: 0,
-      width: width,
-    });
-    setIsModalVisible(true);
-    setActiveLink(linkName);
-  };
-
-  const handleMouseLeave = () => {
-    modalTimeoutRef.current = setTimeout(() => {
-      setActiveLink("");
-      setIsModalVisible(false);
-    }, 200);
-  };
-
-  const cancelCloseModal = () => {
-    if (modalTimeoutRef.current) {
-      clearTimeout(modalTimeoutRef.current);
-      modalTimeoutRef.current = null;
-    }
-  };
+  const {
+    menuModalOpen,
+    searchModalOpen,
+    openMenuModal,
+    closeMenuModal,
+    openSearchModal,
+    closeSearchModal,
+  } = useModal();
 
   return (
-    <div className="hidden justify-start text-base font-medium lg:flex lg:flex-1">
-      <Link
-        href="/"
-        className="flex h-full items-center border-b-2 border-transparent px-3 transition-all duration-200 ease-in-out xl:px-4"
-      >
-        Home
-      </Link>
-      <Link
-        href="#"
-        className={`flex h-full items-center border-b-2 px-3 transition-all duration-200 ease-in-out xl:px-4 ${activeLink === "Men" ? "border-stone-800" : "border-transparent"}`}
-        onMouseEnter={(e) => handleMouseEnter(e, <MegaMenuMen />, "Men")}
-        onMouseLeave={handleMouseLeave}
-      >
-        Men
-      </Link>
-      <Link
-        href="#"
-        className={`flex h-full items-center border-b-2 px-3 transition-all duration-200 ease-in-out xl:px-4 ${activeLink === "Women" ? "border-stone-800" : "border-transparent"}`}
-        onMouseEnter={(e) => handleMouseEnter(e, <MegaMenuWomen />, "Women")}
-        onMouseLeave={handleMouseLeave}
-      >
-        Women
-      </Link>
-      <Link
-        href="#"
-        className={`flex h-full items-center border-b-2 px-2 transition-all duration-200 ease-in-out xl:px-4 ${activeLink === "All Products" ? "border-stone-800" : "border-transparent"} `}
-        onMouseEnter={(e) =>
-          handleMouseEnter(e, <MegaMenuAllProducts />, "All Products")
-        }
-        onMouseLeave={handleMouseLeave}
-      >
-        All Products
-      </Link>
-      <Link
-        href="#"
-        className="flex h-full items-center border-b-2 border-transparent px-3 text-red-600 transition-all duration-200 ease-in-out xl:px-4"
-      >
-        SALE
-      </Link>
+    <>
+      <div className="flex flex-1 justify-start gap-4 text-xl font-medium">
+        <button
+          className="flex h-full items-center gap-3"
+          onClick={openMenuModal}
+        >
+          <AiOutlineMenu />
+          <span className="hidden text-sm md:block">Menu</span>
+        </button>
 
-      <HeaderModal
-        isVisible={isModalVisible}
-        onClose={handleMouseLeave}
-        position={modalPosition}
-        onMouseEnter={cancelCloseModal}
-        onMouseLeave={handleMouseLeave}
-        closeOnOutsideClick={false} // Disable outside click close for hover behavior
+        <button
+          onClick={openSearchModal}
+          className="flex h-full items-center gap-3"
+        >
+          <IoSearchOutline />
+          <span className="hidden text-sm md:block">Search</span>
+        </button>
+      </div>
+
+      <Modal
+        isOpen={menuModalOpen}
+        onClose={closeMenuModal}
+        position="left"
+        width="w-full sm:w-2/3 md:w-3/5 lg:w-1/3 md:px-2 px-8"
+        height="h-full"
+        additionalStylesButton="top-5 right-6 text-2xl text-stone-800"
       >
-        {modalContent}
-      </HeaderModal>
-    </div>
+        <div className="flex h-full flex-col px-4 pt-7 md:px-12">
+          <MenuSidebarContent />
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={searchModalOpen}
+        onClose={closeSearchModal}
+        position="top"
+        width="w-full"
+        height="h-auto"
+        additionalStylesButton="top-2 right-3 md:top-5 md:right-6 text-2xl text-stone-800"
+      >
+        <SearchBarModal />
+      </Modal>
+    </>
   );
 }
 

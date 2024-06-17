@@ -23,7 +23,7 @@ function DesktopFooter() {
   return (
     <div className="flex w-full flex-col">
       {/* Footer TOP */}
-      <div className="flex gap-16 px-12 py-12 xl:px-20">
+      <div className="flex gap-16 py-12 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         {/* TOP left */}
         <FooterSection list={fotterTopHelp} label="HELP">
           A Client Advisor is available at +31 207 219 441 . You can also chat

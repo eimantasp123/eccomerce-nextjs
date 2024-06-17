@@ -1,47 +1,54 @@
+"use client";
 import Link from "next/link";
-import MobileMenu from "./MobileMenu";
-import HeaderRightSides from "./HeaderRightSides";
-import TabletMenu from "./TabletMenu";
 import HeaderMenu from "./HeaderMenu";
+import HeaderRightSideIcons from "./HeaderRightSideIcons";
+import { ModalProvider } from "../Context/ModalContext";
+import { useEffect, useState } from "react";
 
-function NavbarNew() {
+function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <div className="relative h-20 px-4 md:px-8 lg:px-16 xl:px-24 2xl:px-28">
-      {/* Mobile */}
-      <div className="flex h-full items-center justify-between md:hidden">
-        <Link href="/" className="text-xl font-bold tracking-wide">
-          SHOPY
-        </Link>
-        <MobileMenu />
-      </div>
-
-      {/* Bigger screens */}
-      <div className="hidden h-full justify-between gap-2 md:flex">
+    <div className={`sticky ${isScrolled ? "scrolled" : ""}`}>
+      <div className="flex h-16 items-center justify-between gap-2 px-4 md:px-8 lg:h-20 lg:px-12 xl:px-16 2xl:px-20">
         {/* Left */}
-        <div className="flex flex-1">
-          <div className="hidden md:flex lg:hidden">
-            <TabletMenu />
-          </div>
-          <div className="hidden lg:flex">
+        <ModalProvider>
+          <div className="flex flex-1">
             <HeaderMenu />
           </div>
-        </div>
-        {/* Center */}
-        <div className="flex w-32 items-center justify-center">
-          <Link
-            href="/"
-            className="text-xl font-bold tracking-wide lg:text-2xl xl:text-3xl"
-          >
-            SHOPY
-          </Link>
-        </div>
-        {/* Right */}
-        <div className="flex flex-1 justify-end">
-          <HeaderRightSides />
-        </div>
+          {/* Center */}
+          <div className="flex w-32 items-center justify-center">
+            <Link
+              href="/"
+              className="text-2xl font-bold tracking-wide lg:text-3xl xl:text-3xl"
+            >
+              SHOPY
+            </Link>
+          </div>
+
+          {/* Right */}
+          <div className="flex flex-1 justify-end">
+            <HeaderRightSideIcons />
+          </div>
+        </ModalProvider>
       </div>
     </div>
   );
 }
 
-export default NavbarNew;
+export default Navbar;

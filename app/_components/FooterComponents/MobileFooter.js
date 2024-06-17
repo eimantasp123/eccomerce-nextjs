@@ -58,11 +58,12 @@ function MobileFooter() {
         SHOPY
       </Link>
       {/* Footer ACCORDION */}
-      <div className="flex w-full flex-col border-b-[1px] px-5 sm:px-12">
+      <div className="flex w-full flex-col border-b-[1px] px-4 sm:px-12">
         {footerConent.map((faq, index) => (
           <Accordion
             title={faq.title}
             key={index}
+            paddingLeftContent="pl-2"
             isOpen={openIndex === index}
             onClick={() => handleAccordionClick(index)}
           >

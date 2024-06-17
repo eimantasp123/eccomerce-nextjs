@@ -1,93 +1,126 @@
 "use client";
-
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useModal } from "../Context/ModalContext";
 
-function FloatingLabelInput({ type, name, placeholder, value, onChange }) {
-  const [isFocused, setIsFocused] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
+const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = (e) => {
-    setIsFocused(false);
-    setHasValue(e.target.value !== "");
+  const { accountModalOpen } = useModal();
+
+  useEffect(() => {
+    if (!accountModalOpen) {
+      reset();
+    }
+  }, [accountModalOpen, reset]);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    // try {
+    //   const response = await fetch("/api/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(data),
+    //   });
+    //   const result = await response.json();
+    //   if (response.ok) {
+    //     // Handle successful login (e.g., redirect to dashboard)
+    //     console.log(result);
+    //     reset();
+    //   } else {
+    //     console.error(result.message || "Login failed");
+    //   }
+    // } catch (error) {
+    //   console.error("An unexpected error occurred");
+    // }
   };
 
-  return (
-    <div className="relative">
-      <input
-        type={type}
-        name={name}
-        value={value}
-        className="w-full text-sm focus:outline-none focus:ring-0"
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onChange={onChange}
-      />
-      <label
-        className={`pointer-events-none absolute left-0 top-0 text-sm text-stone-600 transition-all duration-300 ${
-          isFocused || hasValue ? "top-[-15px] text-xs text-stone-800" : ""
-        }`}
-      >
-        {placeholder}
-      </label>
-    </div>
-  );
-}
-
-function LoginForm({ onClose }) {
-  const [formData, setFormData] = useState({
-    userName: "",
-    password: "",
-  });
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setFormData((prevdata) => ({
-      ...prevdata,
-      [name]: value,
-    }));
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log(formData);
-  }
+  const email = watch("email");
+  const password = watch("password");
 
   return (
     <>
-      <form className="flex flex-col" onSubmit={handleSubmit}>
-        <div className="mb-5 flex flex-col border-[1px] border-stone-400 px-6 py-6">
-          <FloatingLabelInput
-            type="text"
-            name="userName"
-            placeholder="Username"
-            onChange={handleChange}
-          />
-          <div className="my-5 border-b-[1px] border-stone-400"></div>
-          <FloatingLabelInput
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-          />
+      <form
+        className="flex w-max flex-col items-center"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="mb-5 flex w-full flex-col">
+          <div className="relative mb-6">
+            <label htmlFor="email" className="text-base font-medium">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="E.g. yourname@gmail.com "
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email address",
+                },
+              })}
+              className="h-10 w-full pl-3 text-base text-gray-900 transition-shadow duration-300 ease-in-out focus:border-stone-800 focus:outline-none focus:ring-[1px] focus:ring-stone-800"
+            />
+            {errors.email && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="relative mb-6">
+            <label htmlFor="password" className="text-base font-medium">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password "
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
+              className="h-10 w-full pl-3 text-base text-gray-900 transition-shadow duration-300 ease-in-out focus:border-stone-800 focus:outline-none focus:ring-[1px] focus:ring-stone-800"
+            />
+            {errors.password && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
         </div>
-        <span className="mb-5 text-center text-[16px]">
-          <Link href="/">Forgot password?</Link>
-        </span>
-        <button className="mb-2 w-full bg-stone-700 py-3 text-base text-white transition-shadow duration-300 ease-in-out hover:shadow-md">
+
+        <button
+          type="submit"
+          disabled={isSubmitting || !email || !password}
+          className={`mb-2 w-full max-w-md bg-stone-700 py-3 text-base text-white transition-shadow duration-300 ease-in-out hover:shadow-md ${
+            isSubmitting || !email || !password
+              ? "cursor-not-allowed opacity-50"
+              : ""
+          }`}
+        >
           SIGN IN
         </button>
       </form>
-      <Link
-        href="/register"
-        onClick={onClose}
-        className="flex items-center justify-center border-[1px] border-stone-400 bg-transparent py-3 text-base text-stone-800 transition-shadow duration-300 ease-in-out hover:shadow-md"
-      >
-        CREATE ACCOUNT
-      </Link>
+      <span className="mb-5 mt-2 flex justify-center text-sm font-semibold underline">
+        <Link href="/">Forgot password?</Link>
+      </span>
     </>
   );
-}
+};
 
 export default LoginForm;

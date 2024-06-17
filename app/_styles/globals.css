@@ -1,5 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
+
+body.modal-open {
+  overflow: hidden;
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.scrolled {
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgb(24, 24, 24);
+}
+
+.custom-scrollbar {
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+}
