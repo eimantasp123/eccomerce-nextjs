@@ -25,7 +25,7 @@ function Navbar() {
 
   return (
     <div className={`sticky ${isScrolled ? "scrolled" : ""}`}>
-      <div className="flex h-16 items-center justify-between gap-2 px-4 md:px-8 lg:h-20 lg:px-12 xl:px-16 2xl:px-20">
+      <div className="flex h-16 items-center justify-between gap-2 px-6 sm:px-8 lg:h-20 lg:px-12 xl:px-16 2xl:px-20">
         {/* Left */}
         <ModalProvider>
           <div className="flex flex-1">

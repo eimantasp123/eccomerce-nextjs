@@ -22,9 +22,9 @@ export default function SearchBarModal() {
           }
           type="text"
           placeholder="Search for..."
-          className="w-full rounded-full border border-gray-300 p-2 pl-12 transition duration-300 ease-in placeholder:text-stone-500 hover:border-gray-600 focus:border-gray-600 focus:shadow-[0_5px_20px_-5px_rgba(0,0,0,0.08)] focus:outline-none"
+          className="w-full rounded-full border border-gray-300 p-2 pl-12 transition duration-300 ease-in placeholder:text-stone-600 hover:border-gray-600 focus:border-gray-600 focus:shadow-[0_5px_20px_-5px_rgba(0,0,0,0.08)] focus:outline-none"
         />
-        <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 transform text-xl text-stone-500" />
+        <IoSearch className="absolute left-3 top-1/2 -translate-y-1/2 transform text-xl text-stone-800" />
       </form>
       {isQuery ? (
         <div className="mx-auto w-full max-w-3xl">

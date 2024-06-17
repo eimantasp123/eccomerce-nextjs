@@ -10,7 +10,7 @@ export const useModal = () => {
 
 export const ModalProvider = ({ children }) => {
   const [menuModalOpen, setMenuModalOpen] = useState(false);
-  const [searchModalOpen, setSearchModalOpen] = useState(true);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [accountModalOpen, setAccountModalOpen] = useState(false);
   const [wishlistModalOpen, setWishlistModalOpen] = useState(false);

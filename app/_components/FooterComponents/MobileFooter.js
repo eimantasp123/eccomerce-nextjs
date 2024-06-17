@@ -58,7 +58,7 @@ function MobileFooter() {
         SHOPY
       </Link>
       {/* Footer ACCORDION */}
-      <div className="flex w-full flex-col border-b-[1px] px-4 sm:px-12">
+      <div className="flex w-full flex-col border-b-[1px] px-6 md:px-10">
         {footerConent.map((faq, index) => (
           <Accordion
             title={faq.title}
