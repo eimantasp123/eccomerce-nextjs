@@ -21,7 +21,7 @@ function DesktopFooter() {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col border-t-[1px]">
       {/* Footer TOP */}
       <div className="flex gap-16 py-12 md:px-8 lg:px-12 xl:px-16 2xl:px-20">
         {/* TOP left */}

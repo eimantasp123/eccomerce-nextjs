@@ -50,7 +50,7 @@ function MobileFooter() {
     setOpenIndex(openIndex === index ? null : index);
   }
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 border-t-[1px]">
       <Link
         href="/"
         className="mt-8 flex flex-1 justify-center text-2xl font-bold tracking-wide"

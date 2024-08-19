@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useRef } from "react";
 
 const ModalContext = createContext();
 
@@ -14,7 +14,6 @@ export const ModalProvider = ({ children }) => {
   const [cartModalOpen, setCartModalOpen] = useState(false);
   const [accountModalOpen, setAccountModalOpen] = useState(false);
   const [wishlistModalOpen, setWishlistModalOpen] = useState(false);
-
   return (
     <ModalContext.Provider
       value={{

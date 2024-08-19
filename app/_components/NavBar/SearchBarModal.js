@@ -4,10 +4,10 @@ import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
 const SearchBarPopularQueries = [
-  { query: `"Shoes"`, link: "/" },
-  { query: `"Suits"`, link: "/" },
-  { query: `"Dresses"`, link: "/" },
-  { query: `"Jewelry"`, link: "/" },
+  { query: `"Query"`, link: "/" },
+  { query: `"Query"`, link: "/" },
+  { query: `"Query"`, link: "/" },
+  { query: `"Query"`, link: "/" },
 ];
 
 export default function SearchBarModal() {

@@ -27,7 +27,7 @@ function WishlistCard() {
       <div className="mx-2 flex h-[90px] gap-6">
         <div className="flex items-center gap-2">
           <img
-            src="/hero-2.jpg"
+            src="/640x800.png"
             alt="Product"
             className="h-full max-w-20 object-cover"
           />

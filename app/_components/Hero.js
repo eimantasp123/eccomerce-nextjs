@@ -9,25 +9,25 @@ import { IoArrowForward, IoArrowBack } from "react-icons/io5";
 
 const heroSlider = [
   {
-    imageSrc: "/hero-1.jpeg",
+    imageSrc: "/1920x1080.png",
     label: "Hero 1",
     title: "SUMMER IS HERE",
     subtitle: "NEW COLLECTION",
     position: "",
   },
   {
-    imageSrc: "/hero-2.jpg",
+    imageSrc: "/1920x1080.png",
     label: "Hero 2",
     title: "ELEVATE YOUR STYLE",
     subtitle: "NEW COLLECTION",
     position: "",
   },
   {
-    imageSrc: "/hero-3.jpg",
+    imageSrc: "/1920x1080.png",
     label: "Hero 3",
     title: "MODERN ELEGANCE",
     subtitle: "NEW COLLECTION",
-    position: "top",
+    position: "",
   },
 ];
 
